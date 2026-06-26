@@ -1,9 +1,0 @@
-body {
-  margin: 1900px;
-  padding:1900;
-  overflow: hidden; /* Evita barras de desplazamiento innecesarias */
-}
-
-canvas {
-  display: block; /* Elimina un pequeño espacio en blanco debajo del canvas */
-}
