@@ -1,0 +1,9 @@
+body {
+  margin: 0px;
+  padding:0px;
+  overflow: hidden; /* Evita barras de desplazamiento innecesarias */
+}
+
+canvas {
+  display: block; /* Elimina un pequeño espacio en blanco debajo del canvas */
+}
