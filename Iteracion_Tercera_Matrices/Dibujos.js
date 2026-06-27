@@ -2,7 +2,7 @@
 // --- reordenando el arreglo curvas_1 en uno nuevo con el orden modificado ---
 let bolsaCurvas1 = []; // y
 
-
+//cambiso 27/03/2026
 
 // --- CLASES CONTENEDORAS ---
 // --- CLASES CONTENEDORAS ---
@@ -48,9 +48,9 @@ class Curvas_2 {
     }                                                    // y
   }
 
-  dibujar(pg, opacidad, vib, satu) {
+  dibujar(pg, opacidad, vib, vibActualTiempo, satu) {
     pg.background(this.fondoColor);
-    for (let c of this.curvas) c.dibujar(pg, opacidad, vib);
+    for (let c of this.curvas) c.dibujar(pg, opacidad, vib, vibActualTiempo);
   }
 }
 
@@ -102,11 +102,11 @@ class Curva_2 {
     this.colorBorde = col;
   }
 
-  dibujar(pg, op, vib, satu) {
+  dibujar(pg, op, vib, vibActualTiempo, satu) {
     let col = color(hue(this.colorBorde), saturation(this.colorBorde), brightness(this.colorBorde), op);
     pg.noFill(); pg.stroke(col); pg.strokeWeight(6); pg.beginShape();
     for (let i = 0; i < this.puntos.length; i += 2)
-      pg.curveVertex(this.puntos[i] + random(-vib, vib), this.puntos[i + 1] + random(-vib, vib));
+      pg.curveVertex(this.puntos[i] + random(-vib, vib) + vibActualTiempo, this.puntos[i + 1] + random(-vib, vib) + vibActualTiempo);
     pg.endShape();
   }
 }
@@ -154,11 +154,11 @@ function cargarDibujo1() {
   let queMatriz = int(random(2));
   console.log("queMatriz = " + queMatriz);
   //no más logica de estados....se vienen cambios
-  puntosE1 = datosHSB["puntosE1Alt" + queMatriz]; // antes esto era puntosE1 = datosHSB.puntosE1;
-  /*
+  //puntosE1 = datosHSB["puntosE1Alt" + queMatriz]; // antes esto era puntosE1 = datosHSB.puntosE1;
+  
   //----logica generativa de matrices----
   puntosE1 = generarMatriz(puntosE1Original, columnaDeCadaCurvaE1, queMatriz);  //recibe los puntos y a que columna corresponden ademas del random para definir la matriz
-  */
+  
 
   let curvas_1 = [];
   for (let i = 0; i < datosHSB.paletaE1.length; i++) {
@@ -176,7 +176,8 @@ function cargarDibujo1() {
 
     curvas_1.push(new Curva(i, colorCurva, puntosCurva));
   }
-  dibujos.push(new Curvas_1(220, curvas_1));
+  let fondoN = color(40, 1, 82, 100);
+  dibujos.push(new Curvas_1(fondoN, curvas_1));
   cambiarColores();
 }
 
@@ -193,7 +194,8 @@ function cargarDibujo2() {
     let puntosCurva = puntosBordesE3[i];
     curvas_2.push(new Curva_2(i, colorCurva, puntosCurva));
   }
-  dibujos.push(new Curvas_2(220, curvas_2));
+  let fondoN = color(40, 1, 82, 100);
+  dibujos.push(new Curvas_2(fondoN, curvas_2));
   cambiarColores();
 }
 
@@ -216,13 +218,14 @@ function cargarDibujo3() {
     curvas_3.push(new Curva_3(i, colorCurva, puntosCurva));
   }
   //un solo color para todas los bordes
-  let coloresBorde = [color('#b8c7c4')];
+  let coloresBorde = [color('#9c9191')];
 
   for (let i = 0; i < datosHSB.puntosBordesE2.length; i++) {
     let puntosCurva = puntosBordesE2[i];
     curvas_4.push(new Curva_4(i, coloresBorde[0], puntosCurva));
   }
-  dibujos.push(new Curvas_3(220, curvas_3, curvas_4));
+  let fondoN = color(40, 1, 82, 100);
+  dibujos.push(new Curvas_3(fondoN, curvas_3, curvas_4));
   cambiarColores();
 }
 
