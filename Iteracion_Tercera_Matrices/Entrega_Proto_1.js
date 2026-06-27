@@ -95,6 +95,7 @@ let opC2 = 0;                        //define opacidad de las curvas del estado 
 let opC3 = 0;                        //define la opacidad de las curvas del estdo 2 - depende de la intensidad - de transparente a opaco
 let strWC4 = 13;                     //define el strokjeWeight() de los bordes del estadpo 2 - depende de la intensidad - de grueso a fino (13 a 6) (6 es el valor estatico que reciben los bordes del estado 3)
 let vibActual = 0;                   //define en rango del valor aleatorio que se añade a las coordenadas de los vertices de curveVertex((), ()) cada vez que se dibujan - genera un desplazamiento de las coordenadas originales relativamente estable - depende de la intensidad - su valor final es entre 0 y 5;
+let vibActualTiempo = 0;
 let hug = 0;
 let saturacion = 0;                  // variable que almacena el mapeo entre la intensidad de 0 a 1 y la pasa a entre 20 y 100 (100 en es valor maximo para un parametro de color en el modo hsb) - la variazion del resultado del mapeo se atenua usando un lerp al 10% - es pasado como parametro al metodo .dibujar del objeto maestro contenido en el arreglo dibujos, es decir, a los objetos de las 3 clases maestras. Estos a su vez se lo pasan desde su propios metodos .dibujar a los metodos .dibujar de las clases que definen como es cada curva o borde - la cadena de procesado de la saturacion llega a su resultado final en la variable local "let col = color(hue(), saturation(); brightness()); del metodo .dibujar de los objetos Curva Curva_2 Curva_3 Curva_4 como parametro que se asigna, como ya hemos dicho, en primer lugar en function draw al invocar dibujos[N].dibujar(acá es donde se pueden meter parametros que afecten al dibujo y dependan de las variaciones del sonido)
 let brillo = 0;
@@ -224,7 +225,7 @@ function draw() {
 
   antesHabiaSonido = haySonido;
   //saca relleno en dibujo[0]
-  let targetOpInvertida = map(intensidad, 0.2, 1.0, 100, 20, true); //{2}
+  let targetOpInvertida = map(intensidad, 0.2, 1.0, 100, 100, true); //{2}
   //agrega relleno en dibujo[1,2]
   let targetOp = map(intensidad, 0.0, 1.0, 20, 100, true);
   //diversifica el relleno de la figura fondo en dibujo[1]
@@ -233,30 +234,44 @@ function draw() {
   let targetStrWC4 = map(intensidad, 0.2, 1.0, 13, 6, true);
   //hace vibrar las cuvas en dibujo[0,1,2]
   let targetVib = map(intensidad, 0.1, 1.0, 0, 5, true);
+  let tiempo = 0;
+  tiempo += 1;
+  if (tiempo > 100) {
+    tiempo = 0;
+  }
+  let targetVibTiempo = map(tiempo, 0, 100, -10, 10, true);
+  let targetAlt;
 
-  let targetAlt = map(altura, 0.1, 1.0, 0, 30, true);
   if (altura < 0.5) {
+    targetAlt = map(altura, 0.1, 0.5, 0, 30, true);
     hug = lerp(hug, targetAlt, 0.1);
   } else if (altura >= 0.5) {
+    targetAlt = map(altura, 0.5, 1.0, 0, 30, true);
     hug = lerp(hug, targetAlt, 0.1);
   }
+
   // Suavizado (la "respiracion")
-  opC2 = lerp(opC2, targetOpInvertida, 0.1); //{3}
+
   opC1 = lerp(opC1, targetOp, 0.1);
   opC3 = lerp(opC3, targetOp3, 0.1);  //
   strWC4 = lerp(strWC4, targetStrWC4, 0.1);
   vibActual = lerp(vibActual, targetVib, 0.1);
+  vibActualTiempo = lerp(vibActualTiempo, targetVibTiempo, 0.1);
   //buffer.background(220);
 
-  let cuanto = map(mouseX, 0, width / 2, 0, 20, true);   // esta es la variable por ahora es la que define cuanto varia la saturacion, no esta vinculada a el sonido, sino al mouseX, hay que cambiarlo
+    opC2 = lerp(opC2, targetOpInvertida, 0.1); //{3}
 
-  saturacion = lerp(saturacion, cuanto, 0.1);
+    let cuanto = map(altura, 0.0, 1.0, 0, 20, true);   // esta es la variable por ahora es la que define cuanto varia la saturacion, no esta vinculada a el sonido, sino al mouseX, hay que cambiarlo
+    saturacion = lerp(saturacion, cuanto, 0.1);
+
+  
+
 
   //seleccion automatica de dibujo   //{4}
   if (indiceObra === 0) {
     dibujos[indiceObra].dibujar(buffer, vibActual, hug, saturacion, brillo, opC2); // dibujo 1 y 2
-  } else if (indiceObra === 1) { // {1}
-    dibujos[indiceObra].dibujar(buffer, opC3, opC1, strWC4, vibActual, saturacion); // dibujo 3
+  } else if (indiceObra === 1) { //estado 2
+    dibujos[indiceObra].dibujar(buffer, opC3, opC1, strWC4, vibActual, vibActualTiempo, saturacion); // dibujo 3
   } else {
     /*if (opC1 > 70) {
       
@@ -332,7 +347,7 @@ function draw() {
 
 let pantalla = 0;
 function mostrarLienzo() {
-  //background(0);
+  //background(40, 1, 82, 100);
 
   if (mostrar) {
     shader(ondaShader);
