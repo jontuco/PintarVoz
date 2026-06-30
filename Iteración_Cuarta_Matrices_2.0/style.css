@@ -1,0 +1,138 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+
+/* --- PANTALLA DE INICIO --- */
+#pantalla-inicio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(9, 23, 57);
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+#pantalla-inicio p {
+  font-size: 40px;
+  font-family: sans-serif;
+  margin: 10;
+  text-align: center;
+}
+
+/* --- PANEL DE AJUSTES --- */
+#panel-ajustes {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 800px;
+  background: rgba(5, 10, 30, 0.93);
+  border: 1px solid rgba(0, 255, 80, 0.5);
+  border-radius: 10px;
+  padding: 18px 20px 16px;
+  color: #e0ffe8;
+  font-family: sans-serif;
+  font-size: 20px;
+  z-index: 200;
+  box-shadow: 0 0 20px rgba(0, 255, 80, 0.15);
+  pointer-events: all;
+}
+
+#panel-ajustes h3 {
+  margin: 0 0 14px;
+  font-size: 26px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 255, 80, 0.9);
+  border-bottom: 1px solid rgba(0, 255, 80, 0.25);
+  padding-bottom: 8px;
+}
+
+#panel-ajustes .fila {
+  margin-bottom: 14px;
+}
+
+#panel-ajustes label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 26px;
+  color: #a0d8a8;
+  letter-spacing: 0.02em;
+}
+
+#panel-ajustes label .val {
+  color: rgba(0, 255, 80, 0.95);
+  font-weight: bold;
+  font-size: 26px;
+}
+
+#panel-ajustes input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 4px;
+  background: rgba(0, 255, 80, 0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+#panel-ajustes input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 255, 80, 0.9);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 255, 80, 0.6);
+}
+
+#panel-ajustes input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 255, 80, 0.9);
+  cursor: pointer;
+  border: none;
+}
+
+#panel-ajustes button#btn-reset {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(0, 255, 80, 0.4);
+  border-radius: 6px;
+  color: rgba(0, 255, 80, 0.85);
+  font-size: 26px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+#panel-ajustes button#btn-reset:hover {
+  background: rgba(0, 255, 80, 0.12);
+  color: #fff;
+}
+
+#panel-ajustes .hint {
+  margin: 10px 0 0;
+  text-align: center;
+  color: #2a4a30;
+  font-size: 26px;
+  letter-spacing: 0.05em;
+}
