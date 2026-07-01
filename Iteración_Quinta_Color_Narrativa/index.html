@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css"> <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
+  <script src="libraries/ml5.min.js"></script>
+</head>
+
+<body>
+  <div id="pantalla-inicio">
+    <p>CLICK PARA COMENZAR</p>
+  </div>
+  
+  <script src="gestor.js"></script>
+  <script src="Dibujos.js"></script>
+  <script src="Entrega_Proto_1.js"></script>
+  <script src="panel.js"></script>
+
+  <div id="panel-ajustes">
+  <h3>Ajustes de voz</h3>
+
+  <div class="fila">
+    <label>Umbral de ruido <span class="val" id="val-umbral"></span></label>
+    <input type="range" id="ctrl-umbral" min="0.01" max="0.5" step="0.01" value="0.1">
+  </div>
+
+  <div class="fila">
+    <label>Duración cambio de estado <span class="val" id="val-duracion"></span></label>
+    <input type="range" id="ctrl-duracion" min="500" max="6000" step="500" value="2000">
+  </div>
+
+  <div class="fila">
+    <label>Nota MIDI mínima <span class="val" id="val-notamin"></span></label>
+    <input type="range" id="ctrl-notamin" min="20" max="60" step="1" value="44">
+  </div>
+
+  <div class="fila">
+    <label>Nota MIDI máxima <span class="val" id="val-notamax"></span></label>
+    <input type="range" id="ctrl-notamax" min="50" max="100" step="1" value="70">
+  </div>
+
+  <div class="fila">
+    <label>Sensibilidad mic <span class="val" id="val-ampmax"></span></label>
+    <input type="range" id="ctrl-ampmax" min="0.1" max="1.0" step="0.05" value="0.3">
+  </div>
+
+  <button id="btn-reset">Reiniciar valores</button>
+  <p class="hint">[ T ] para cerrar</p>
+</div>
+</body>
+</html>
